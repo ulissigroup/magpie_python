@@ -1,6 +1,6 @@
-import types
 import pandas as pd
 from ....data.materials.CompositionEntry import CompositionEntry
+
 
 class StoichiometricAttributeGenerator:
     """Class to set up and generate descriptors based on the stoichiometry of a
@@ -103,16 +103,14 @@ class StoichiometricAttributeGenerator:
 
         # Raise exception if input argument is not of type list of
         # CompositionEntry's.
-        if (type(entries) is not types.ListType):
-            raise ValueError("Argument should be of type list of "
-                             "CompositionEntry's")
+        if not isinstance(entries, list):
+            raise ValueError("Argument should be of type list of CompositionEntry's")
         elif (entries and not isinstance(entries[0], CompositionEntry)):
-            raise ValueError("Argument should be of type list of "
-                             "CompositionEntry's")
+            raise ValueError("Argument should be of type list of CompositionEntry's")
 
         # Issue warning if no p norms are added.
         if (not self.p_norms):
-            print "Warning: only L0 norm is computed."
+            print("Warning: only L0 norm is computed.")
 
         # Add in feature names.
         feat_headers.append("NComp")

@@ -3,6 +3,7 @@ from ....data.materials.CrystalStructureEntry import CrystalStructureEntry
 from ....vassal.data.Atom import Atom
 from ....vassal.data.Cell import Cell
 
+
 class testAtomicStructureEntry(unittest.TestCase):
     def test_replacement(self):
         # Make B2-CuZr
@@ -17,7 +18,7 @@ class testAtomicStructureEntry(unittest.TestCase):
         CuZr.compute_voronoi_tessellation()
 
         # Make B2-NiZr
-        changes = {"Cu":"Ni"}
+        changes = {"Cu": "Ni"}
         NiZr = CuZr.replace_elements(changes)
 
         # Make sure the tessellation object did not change.
@@ -57,6 +58,6 @@ class testAtomicStructureEntry(unittest.TestCase):
         CuZr = CrystalStructureEntry(cell, "B2", None)
 
         name = CuZr.__str__()
-        print name
+        print(name)
         self.assertTrue("CuZr" in name)
         self.assertTrue("B2" in name)

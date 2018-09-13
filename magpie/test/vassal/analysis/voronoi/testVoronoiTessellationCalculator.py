@@ -9,6 +9,7 @@ from .....vassal.data.Cell import Cell
 import numpy.testing as np_tst
 from .....vassal.io.VASP5IO import VASP5IO
 
+
 class testVoronoiTessellationCalculator(unittest.TestCase):
     this_file_path = os.path.dirname(__file__)
     abs_path = os.path.join(this_file_path, "../../../test-files/")
@@ -68,7 +69,7 @@ class testVoronoiTessellationCalculator(unittest.TestCase):
         paths = result[0].get_neighbors_by_walks(result, 2)
         self.assertEquals(18, len(paths))
         total_weight = sum(paths.values())
-        for k,v in paths.iteritems():
+        for k, v in paths.iteritems():
             if 2 in k.get_supercell() or -2 in k.get_supercell():
                 self.assertAlmostEquals(1 / 30.0, v, delta=1e-6)
             else:
@@ -262,7 +263,7 @@ class testVoronoiTessellationCalculator(unittest.TestCase):
 
     def test_ICSD_examples(self):
         example = ["3315-Ge2Os2Th1", "1001-N1Y1", "11375-C2N1",
-            "12012-Ge2Ru2Tb1", "3778-Sr1Zn2", "4746-Cd1Cu4Er1"]
+                   "12012-Ge2Ru2Tb1", "3778-Sr1Zn2", "4746-Cd1Cu4Er1"]
         for e in example:
             structure = VASP5IO.parse_file(file_name=self.abs_path + e +
                                                      ".vasp")
@@ -335,8 +336,8 @@ class testVoronoiTessellationCalculator(unittest.TestCase):
         for x in range(n_atom):
             for y in range(n_atom):
                 for z in range(n_atom):
-                    new_pos = np.array([x, y, z], dtype=float) + \
-                              np.random.random(3) / n_atom
+                    new_pos = (np.array([x, y, z], dtype=float) +
+                               np.random.random(3) / n_atom)
                     new_pos *= step_size
                     structure.add_atom(Atom(new_pos, 0))
 
@@ -374,7 +375,7 @@ class testVoronoiTessellationCalculator(unittest.TestCase):
         self.assertAlmostEquals(0.0, vol_error, delta=1e-2)
 
     def test_scaling(self):
-        print "size\ttime\tvol_error"
+        print("size\ttime\tvol_error")
         n_atom_list = range(1, 9) + [10, 20]
         # Number of atoms in each direction.
         for n_atom in n_atom_list:
@@ -386,8 +387,8 @@ class testVoronoiTessellationCalculator(unittest.TestCase):
             for x in range(n_atom):
                 for y in range(n_atom):
                     for z in range(n_atom):
-                        new_pos = np.array([x, y, z], dtype=float) + \
-                                  np.random.random(3) / n_atom
+                        new_pos = (np.array([x, y, z], dtype=float) +
+                                   np.random.random(3) / n_atom)
                         new_pos *= step_size
                         structure.add_atom(Atom(new_pos, 0))
 
@@ -403,8 +404,8 @@ class testVoronoiTessellationCalculator(unittest.TestCase):
 
             vol_error = (total_vol - structure.volume()) / structure.volume()
             self.assertAlmostEquals(0.0, vol_error, delta=1e-2)
-            print "{:d}\t{:.3f}\t{:.2f}".format(structure.n_atoms(),
-                    run_time/1000.0, vol_error * 100)
+            print(("{:d}\t{:.3f}\t{:.2f}".format(structure.n_atoms(),
+                   run_time/1000.0, vol_error * 100)))
 
     def test_layered_compound(self):
         structure = VASP5IO.parse_file(file_name=self.abs_path +

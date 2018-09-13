@@ -1,6 +1,6 @@
 import re
-from itertools import izip
 from ...data.materials.util.LookUpData import LookUpData
+
 
 class CompositionEntry(object):
     """Class that defines a CompositionEntry object.
@@ -336,8 +336,8 @@ class CompositionEntry(object):
                 try:
                     fraction = float(fraction_matcher.group())
                 except ValueError:
-                    raise ValueError("Element amount "+
-                        fraction_matcher.group()+" not a valid number.")
+                    raise ValueError(("Element amount " +
+                                      fraction_matcher.group()+" not a valid number."))
 
             # Skip if fraction is zero.
             if fraction == 0:
@@ -459,7 +459,7 @@ class CompositionEntry(object):
         """
 
         h1 = h2 = 0
-        for e,f in izip(self.element_ids, self.fractions):
+        for e, f in zip(self.element_ids, self.fractions):
             h1 += 31*h1 + hash(e)
             h2 += 31*h2 + hash(f)
 
@@ -507,7 +507,7 @@ class CompositionEntry(object):
         # Sort elements based on the electronegativity order.
         if to_sort:
             tmp_tuple = zip(self.element_ids, self.fractions)
-            tmp_tuple.sort(key=lambda (x,y): self.lp_sorting_order[x])
+            tmp_tuple.sort(key=lambda x, y: self.lp_sorting_order[x])
         else:
             tmp_tuple = zip(self.element_ids, self.fractions)
 
@@ -548,7 +548,7 @@ class CompositionEntry(object):
 
         """
 
-        for e,f in add_comp.iteritems():
+        for e, f in add_comp.iteritems():
             # If total_comp contains this element.
             if e in total_comp:
                 total_comp[e] += multiplier * f

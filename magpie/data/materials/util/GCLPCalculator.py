@@ -1,10 +1,10 @@
 # coding=utf-8
-from itertools import izip
 import numpy as np
 from scipy.linalg import lu
 from scipy.optimize import linprog
 from .LookUpData import LookUpData
 from ..CompositionEntry import CompositionEntry
+
 
 class GCLPCalculator:
     """Class that uses Grand-Canonical Linear Programming (GCLP) method to
@@ -75,7 +75,7 @@ class GCLPCalculator:
             A list of energy values as floats.
 
         """
-        for entry,energy in izip(entries, energies):
+        for entry, energy in zip(entries, energies):
             # if has measurement
             self.add_phase(entry, energy)
 

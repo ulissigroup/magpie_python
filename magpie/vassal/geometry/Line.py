@@ -2,6 +2,7 @@ import numpy as np
 from numpy.linalg import norm
 import sys
 
+
 class Line:
     """Class to represent lines in a three dimensional space.
 
@@ -197,7 +198,7 @@ class Line:
             try:
                 n = d - np.dot(d, self.direction) * self.direction
             except RuntimeWarning:
-                print d, self.direction
+                print(d, self.direction)
             return norm(n)
         else:
             normal = np.cross(self.direction, l.direction)
@@ -251,7 +252,7 @@ class Line:
         d0 = l.zero - self.zero
         a = np.dot(d0, self.direction)
         b = np.dot(d0, l.direction)
-        return self.zero + self.direction * ( a - b * cos) / n
+        return self.zero + self.direction * (a - b * cos) / n
 
     def intersection(self, l):
         """Function to compute the intersection point of the instance and

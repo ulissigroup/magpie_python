@@ -2,6 +2,7 @@ import numpy as np
 from numpy.linalg import norm
 from ..voronoi.VoronoiVertex import VoronoiVertex
 
+
 class VoronoiEdge:
     """Class describing an edge of a cell in a Voronoi tessellation.
 
@@ -66,8 +67,7 @@ class VoronoiEdge:
         self.previous_edge = None
 
         # Compute the line.
-        self.line = edge_face.get_plane().intersection(other=
-            intersecting_face.get_plane())
+        self.line = edge_face.get_plane().intersection(other=intersecting_face.get_plane())
         if self.line is None:
             raise Exception("Planes are parallel.")
 
@@ -171,11 +171,9 @@ class VoronoiEdge:
         if not just_join:
             within_bounds = None
             if is_forward:
-                within_bounds = edge1_terminus < edge1.end and edge2_terminus > \
-                                                               edge2.beginning
+                within_bounds = edge1_terminus < edge1.end and edge2_terminus > edge2.beginning
             else:
-                within_bounds = edge1_terminus > edge1.beginning and \
-                                edge2_terminus < edge2.end
+                within_bounds = edge1_terminus > edge1.beginning and edge2_terminus < edge2.end
 
             if not within_bounds:
                 return False
@@ -209,8 +207,8 @@ class VoronoiEdge:
             True if instance equal to other, else False.
         """
         if isinstance(other, VoronoiEdge):
-            return other.edge_face.__eq__(self.edge_face) and \
-                   other.intersecting_face.__eq__(self.intersecting_face)
+            return (other.edge_face.__eq__(self.edge_face) and
+                    other.intersecting_face.__eq__(self.intersecting_face))
         return False
 
     def __hash__(self):
@@ -488,12 +486,12 @@ class VoronoiEdge:
 
         Mainly used for debugging purposes.
         """
-        print "Edge face:", self.edge_face.outside_atom.__str__(), \
-            "Intersecting face:", self.intersecting_face.outside_atom.__str__()
-        print "Line zero:", self.line.zero
-        print "Line direction:", self.line.direction
-        print "Line tolerance:", self.line.tolerance
-        print "Edge direction:", self.direction
-        print "Beginning:", self.beginning
-        print "End:", self.end
-        print
+        print("Edge face:", self.edge_face.outside_atom.__str__())
+        print("Intersecting face:", self.intersecting_face.outside_atom.__str__())
+        print("Line zero:", self.line.zero)
+        print("Line direction:", self.line.direction)
+        print("Line tolerance:", self.line.tolerance)
+        print("Edge direction:", self.direction)
+        print("Beginning:", self.beginning)
+        print("End:", self.end)
+        print("")
